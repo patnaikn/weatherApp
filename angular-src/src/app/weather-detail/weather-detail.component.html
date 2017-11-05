@@ -1,0 +1,118 @@
+<!--<p>-->
+  <!--weather-detail works!-->
+<!--</p>-->
+<a (click)="showWeatherInfo()" href="#">Click</a>
+
+
+<div class="container">
+    <div *ngIf="weatherInfo.weather" class="cardOuter" style="background-image: url('https://picoolio.net/images/2017/05/21/01f54bc.png');">
+      <ul class="list-inline">
+        <li><img src="http://svgshare.com/i/1fN.svg" alt="" /></li>
+        <li>{{weatherInfo.weather[0].astronomy[0].sunrise}}</li>
+      </ul>
+      <ul class="list-inline">
+        <li><img src="http://svgshare.com/i/1fu.svg" alt="" /></li>
+        <li>{{weatherInfo.weather[0].astronomy[0].moonrise}}</li>
+      </ul>
+      <h1>{{weatherInfo.current_condition}}</h1>
+      <div class="date">
+        <h2>{{weatherInfo.current_temp}}&deg;C</h2>
+        <h2>{{weatherInfo.wind_dir}}&deg;</h2>
+        <h2>{{weatherInfo.wind_speed_kmph}} KMPH</h2>
+      </div>
+      <p class="city">{{weatherInfo.nearestArea}}</p>
+    </div>
+  <div class="row">
+    <div *ngFor="let item of weatherInfo.weather" class="col-md-6">
+      <div *ngIf="item !== weatherInfo.weather[0] && item !== weatherInfo.weather[13]">
+        <div class="card" style="background-image: url('https://picoolio.net/images/2017/05/21/01f54bc.png');">
+          <ul class="list-inline">
+            <li><img src="http://svgshare.com/i/1fN.svg" alt=""/></li>
+            <li>{{item.astronomy[0].sunrise}}</li>
+          </ul>
+          <ul class="list-inline">
+            <li><img src="http://svgshare.com/i/1fu.svg" alt=""/></li>
+            <li>{{item.astronomy[0].moonrise}}</li>
+          </ul>
+          <h1>{{item.date}}</h1>
+          <div class="date">
+            <h3>{{item.mintempC}}&deg;C</h3>
+            <h3>{{item.maxtempC}}&deg;C</h3>
+          </div>
+          <!--<p class="city">San Francisco</p>-->
+        </div>
+      </div>
+    </div>
+    <!--<div class="col-md-6">-->
+      <!--<div class="card" style="background-image: url('https://picoolio.net/images/2017/05/21/021d3bf.jpg');">-->
+        <!--<ul class="list-inline">-->
+          <!--<li><img src="http://svgshare.com/i/1fu.svg" alt="" /></li>-->
+          <!--<li>Sunny</li>-->
+        <!--</ul>-->
+        <!--<h1>27°</h1>-->
+        <!--<div class="date">-->
+          <!--<h3>15:56</h3>-->
+          <!--<p>MON 08:30</p>-->
+        <!--</div>-->
+        <!--<p class="city">San Francisco</p>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-md-6">-->
+      <!--<div class="card" style="background-image: url('https://picoolio.net/images/2017/05/21/03fff34.jpg');">-->
+        <!--<ul class="list-inline">-->
+          <!--<li><img src="http://svgshare.com/i/1eq.svg" alt="" /></li>-->
+          <!--<li>Cloudy</li>-->
+        <!--</ul>-->
+        <!--<h1>30°</h1>-->
+        <!--<div class="date">-->
+          <!--<h3>15:23</h3>-->
+          <!--<p>MON 09:23</p>-->
+        <!--</div>-->
+        <!--<p class="city">San Francisco</p>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-md-6">-->
+      <!--<div class="card" style="background-image: url('https://picoolio.net/images/2017/05/21/0445513.jpg');">-->
+        <!--<ul class="list-inline">-->
+          <!--<li><img src="http://svgshare.com/i/1eq.svg" alt="" /></li>-->
+          <!--<li>Heavy rain</li>-->
+        <!--</ul>-->
+        <!--<h1>24°</h1>-->
+        <!--<div class="date">-->
+          <!--<h3>03:35</h3>-->
+          <!--<p>MON 08:23</p>-->
+        <!--</div>-->
+        <!--<p class="city">San Francisco</p>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-md-6">-->
+      <!--<div class="card" style="background-image: url('https://picoolio.net/images/2017/05/21/05393b0.jpg');">-->
+        <!--<ul class="list-inline">-->
+          <!--<li><img src="http://svgshare.com/i/1eq.svg" alt="" /></li>-->
+          <!--<li>Snow</li>-->
+        <!--</ul>-->
+        <!--<h1>22°</h1>-->
+        <!--<div class="date">-->
+          <!--<h3>08:42</h3>-->
+          <!--<p>MON 10:42</p>-->
+        <!--</div>-->
+        <!--<p class="city">San Francisco</p>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-md-6">-->
+      <!--<div class="card" style="background-image: url('https://picoolio.net/images/2017/05/21/06dfa8c.jpg');">-->
+        <!--<ul class="list-inline">-->
+          <!--<li><img src="http://svgshare.com/i/1eq.svg" alt="" /></li>-->
+          <!--<li>Snow</li>-->
+        <!--</ul>-->
+        <!--<h1>4°</h1>-->
+        <!--<div class="date">-->
+          <!--<h3>22:56</h3>-->
+          <!--<p>MON 08:23</p>-->
+        <!--</div>-->
+        <!--<p class="city">San Francisco</p>-->
+      <!--</div>-->
+    <!--</div>-->
+  </div>
+</div>
+
