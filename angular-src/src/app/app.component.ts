@@ -10,13 +10,14 @@ import {GetWeatherInfoService} from "./get-weather-info.service";
 export class AppComponent {
   title = 'Weather Application';
   // options :
-  my_city: String = "Washington,USA";
-  my_key: String = "f7b2171a5b7849cab85123255170311";
-  no_of_days: Number = 5 ;
+  //my_city: String = "Washington,USA";
+  location: String;
+  my_key: String;
+  no_of_days: Number;
 // build URI:
-  uri ="http://api.worldweatheronline.com/premium/v1/weather.ashx?q="+this.my_city+"&key="+this.my_key+"&format=json&no_of_days="+this.no_of_days+"&includeLocation=yes";
+  //uri ="http://api.worldweatheronline.com/premium/v1/weather.ashx?q="+this.my_city+"&key="+this.my_key+"&format=json&no_of_days="+this.no_of_days+"&includeLocation=yes";
 // uri-encode it to prevent errors :
-  baseUrl = encodeURI(this.uri);
+  //baseUrl = encodeURI(this.uri);
 
   weatherInfo = {
     nearestArea: '',
@@ -39,8 +40,19 @@ export class AppComponent {
 
   }
 
-  showWeatherInfo(){
-    this.getInfoService.getWeatherInfo(this.baseUrl).subscribe(result => {
+  onSubmitingLocation(){
+    this.my_key = "f7b2171a5b7849cab85123255170311";
+    this.no_of_days = 5 ;
+// build URI:
+    var uri ="http://api.worldweatheronline.com/premium/v1/weather.ashx?q="+this.location+"&key="+this.my_key+"&format=json&no_of_days="+this.no_of_days+"&includeLocation=yes";
+// uri-encode it to prevent errors :
+    var baseUrl = encodeURI(uri);
+    this.showWeatherInfo(baseUrl);
+
+  }
+
+  showWeatherInfo(url){
+    this.getInfoService.getWeatherInfo(url).subscribe(result => {
         this.setWeatherInfo(result.data);
       },
       err => {

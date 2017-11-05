@@ -6,22 +6,20 @@ import {RouterModule, Routes} from "@angular/router";
 
 import { AppComponent } from './app.component';
 import {GetWeatherInfoService} from "./get-weather-info.service";
-import { WeatherDetailComponent } from './weather-detail/weather-detail.component';
 
-const appRoutes : Routes = [
-  {path:'showweather',component: WeatherDetailComponent}
-];
+// const appRoutes : Routes = [
+//   {path:'showweather',component: WeatherDetailComponent}
+// ];
 
 @NgModule({
   declarations: [
-    AppComponent,
-    WeatherDetailComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    // RouterModule.forRoot(appRoutes)
   ],
   providers: [GetWeatherInfoService],
   bootstrap: [AppComponent]
