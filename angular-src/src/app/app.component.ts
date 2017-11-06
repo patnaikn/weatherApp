@@ -92,10 +92,10 @@ export class AppComponent {
     // Wind direction degree (0 degree corresponds with North)
     this.weatherInfo.wind_dir        =weatherInfo.current_condition[0].winddirDegree;
 
-    this.changeBackGround(this.weatherInfo.current_time);
+    this.changeBackGround(this.weatherInfo.current_time,this.weatherInfo.current_condition);
   }
 
-  changeBackGround(currrentTime){
+  changeBackGround(currrentTime,condition){
     var mainDiv = <HTMLElement>document.querySelector(".cardOuter");
     var hour= currrentTime.toString("hh:mm tt").substring(0,2);
     hour = Number(hour);
@@ -108,6 +108,10 @@ export class AppComponent {
       mainDiv.style.backgroundImage = "url('https://picoolio.net/images/2017/05/21/05393b0.jpg')";
     } else if ((hour >= 6 && hour <= 11 ) && flag === 'PM') {
       mainDiv.style.backgroundImage = "url('https://picoolio.net/images/2017/05/21/021d3bf.jpg')";
+    } else if(condition.toLowerCase().indexOf('rain') > -1){
+      mainDiv.style.backgroundImage = "url('https://picoolio.net/images/2017/05/21/0445513.jpg')";
+    } else if(condition.toLowerCase().indexOf('snow') > -1){
+      mainDiv.style.backgroundImage = "url('https://picoolio.net/images/2017/05/21/06dfa8c.jpg')";
     }
   }
 }
