@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import {GetWeatherInfoService} from "./get-weather-info.service";
-
 
 @Component({
   selector: 'app-root',
@@ -21,6 +21,7 @@ export class AppComponent {
     current_temp: null,
     current_time: '',
     current_condition: '',
+    hourly: null,
     max_temp: null,
     min_temp: null,
     humidity: null,
@@ -30,7 +31,11 @@ export class AppComponent {
     wind_dir: ''
   };
 
-  constructor(private getInfoService : GetWeatherInfoService) { }
+  backgroundUrl : any;
+  iconSrc: any;
+  infoText: String;
+
+  constructor(private getInfoService : GetWeatherInfoService, private _sanitizer: DomSanitizer) { }
 
   ngOnInit() {
 
@@ -44,7 +49,6 @@ export class AppComponent {
 // uri-encode it to prevent errors :
     var baseUrl = encodeURI(uri);
     this.showWeatherInfo(baseUrl);
-
   }
 
   showWeatherInfo(url){
@@ -73,6 +77,9 @@ export class AppComponent {
     this.weatherInfo.current_time = weatherInfo.current_condition[0].observation_time;
     this.weatherInfo.current_condition=weatherInfo.current_condition[0].weatherDesc[0].value;
 
+    //weather on hourly basis
+    this.weatherInfo.hourly     =weatherInfo.weather[0].hourly;
+
     // Max/min temperature in celsius:
     this.weatherInfo.max_temp     =weatherInfo.weather[0].tempMaxC;
     this.weatherInfo.min_temp      =weatherInfo.weather[0].tempMinC;
@@ -93,25 +100,34 @@ export class AppComponent {
     this.weatherInfo.wind_dir        =weatherInfo.current_condition[0].winddirDegree;
 
     this.changeBackGround(this.weatherInfo.current_time,this.weatherInfo.current_condition);
+    this.setWeatherIconUrl(this.weatherInfo.hourly);
+  }
+
+  setWeatherIconUrl(hourly){
+    for (var i = 0; i < hourly.length; i++){
+      this.iconSrc = hourly[i].weatherIconUrl[0].value;
+      this.iconSrc = this._sanitizer.bypassSecurityTrustResourceUrl(this.iconSrc);
+      this.infoText = hourly[i].weatherDesc[0].value;
+    }
   }
 
   changeBackGround(currrentTime,condition){
-    var mainDiv = <HTMLElement>document.querySelector(".cardOuter");
     var hour= currrentTime.toString("hh:mm tt").substring(0,2);
     hour = Number(hour);
     var flag= currrentTime.toString("hh:mm tt").substring(6);
     if ((hour >= 5 && hour <= 9) && flag === 'AM') {
-      mainDiv.style.backgroundImage = "url('https://picoolio.net/images/2017/05/21/03fff34.jpg')";
+      this.backgroundUrl = 'https://picoolio.net/images/2017/05/21/03fff34.jpg';
     } else if((hour > 9 && hour < 12) && flag === 'AM') {
-      mainDiv.style.backgroundImage = "url('https://picoolio.net/images/2017/05/21/01f54bc.png')";
+      this.backgroundUrl = 'https://picoolio.net/images/2017/05/21/01f54bc.png';
     } else if ((hour >= 1 && hour <= 5 ) && flag === 'PM') {
-      mainDiv.style.backgroundImage = "url('https://picoolio.net/images/2017/05/21/05393b0.jpg')";
+      this.backgroundUrl = 'https://picoolio.net/images/2017/05/21/05393b0.jpg';
     } else if ((hour >= 6 && hour <= 11 ) && flag === 'PM') {
-      mainDiv.style.backgroundImage = "url('https://picoolio.net/images/2017/05/21/021d3bf.jpg')";
+      this.backgroundUrl = 'https://picoolio.net/images/2017/05/21/021d3bf.jpg';
     } else if(condition.toLowerCase().indexOf('rain') > -1){
-      mainDiv.style.backgroundImage = "url('https://picoolio.net/images/2017/05/21/0445513.jpg')";
+      this.backgroundUrl = 'https://picoolio.net/images/2017/05/21/0445513.jpg';
     } else if(condition.toLowerCase().indexOf('snow') > -1){
-      mainDiv.style.backgroundImage = "url('https://picoolio.net/images/2017/05/21/06dfa8c.jpg')";
+      this.backgroundUrl = 'https://picoolio.net/images/2017/05/21/06dfa8c.jpg';
     }
+    this.backgroundUrl = this._sanitizer.bypassSecurityTrustStyle(`url(${this.backgroundUrl})`);
   }
 }

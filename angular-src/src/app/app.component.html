@@ -17,7 +17,7 @@
     </div>
   </div>
   <h1 *ngIf="weatherInfo.nearestArea" class="city">Nearest Area: {{weatherInfo.nearestArea}}</h1>
-  <div *ngIf="weatherInfo.weather" class="cardOuter" style="background-image: url('https://picoolio.net/images/2017/05/21/01f54bc.png');">
+  <div *ngIf="weatherInfo.weather" class="cardOuter" [style.background-image]="backgroundUrl">
     <ul class="list-inline">
       <li><img src="http://svgshare.com/i/1fN.svg" alt="" /></li>
       <li>{{weatherInfo.weather[0].astronomy[0].sunrise}}</li>
@@ -32,12 +32,17 @@
       <h2><i class="wi wi-night-sleet"></i>{{weatherInfo.wind_dir}}&deg;</h2>
       <h2><i class="wi wi-night-sleet"></i>{{weatherInfo.wind_speed_kmph}} KMPH</h2>
     </div>
-    <p class="city">{{weatherInfo.current_condition}}</p>
+    <div class="city">
+      <ul class="list-inline">
+        <li><img [src]="iconSrc"></li>
+        <li><p>{{infoText}}</p></li>
+      </ul>
+    </div>
   </div>
   <div class="row">
     <div *ngFor="let item of weatherInfo.weather" class="col-md-6">
-      <div *ngIf="item !== weatherInfo.weather[0]">
-        <div class="card" style="background-image: url('https://picoolio.net/images/2017/05/21/01f54bc.png');">
+      <div>
+        <div class="card" [style.background-image]="backgroundUrl">
           <ul class="list-inline">
             <li><img src="http://svgshare.com/i/1fN.svg" alt=""/></li>
             <li>{{item.astronomy[0].sunrise}}</li>
