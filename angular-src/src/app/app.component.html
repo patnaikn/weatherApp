@@ -1,23 +1,23 @@
-<div class="container">
-  <div class="jumbotron text-center">
-    <p class="lead"> Welcome To</p>
-    <h1>
-      {{title}}
-    </h1>
-    <div>
-      <form (submit)="onSubmitingLocation()">
-        <div class="form-group">
-          <label>Enter Name of the city</label>
-          <div class="form-horizontal" id="forminline">
-            <input type="text" [(ngModel)]="location" name="location" style="width:240px;height:40px;">
-            <input type="submit" class="btn btn-primary" value="Click For Weather Info">
-          </div>
+<div class="jumbotron text-center">
+  <p class="lead"> Welcome To</p>
+  <h1>
+    {{title}}
+  </h1>
+  <div>
+    <form (submit)="onSubmitingLocation()">
+      <div class="form-group">
+        <label>Enter Name of the city</label>
+        <div class="form-horizontal" id="forminline">
+          <input type="text" [(ngModel)]="location" name="location" style="width:240px;height:40px;">
+          <input type="submit" class="btn btn-primary" value="Click For Weather Info">
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
+</div>
+<div class="container">
   <h1 *ngIf="weatherInfo.nearestArea" class="city">Nearest Area: {{weatherInfo.nearestArea}}</h1>
-  <div *ngIf="weatherInfo.weather" class="cardOuter" [style.background-image]="backgroundUrl">
+  <div *ngIf="weatherInfo.weather" class="cardOuter" [style.background-image]="backgroundUrl" (click)="showWeatherChart()">
     <ul class="list-inline">
       <li><img src="http://svgshare.com/i/1fN.svg" alt="" /></li>
       <li>{{weatherInfo.weather[0].astronomy[0].sunrise}}</li>
@@ -45,7 +45,7 @@
     </div>
   </div>
   <div class="row">
-    <div *ngFor="let item of weatherInfo.weather" class="col-md-6">
+    <div *ngFor="let item of weatherInfo.weather" class="col-md-6" (click)="showWeatherChart()">
       <div>
         <div class="card" [style.background-image]="backgroundUrl">
           <ul class="list-inline">
@@ -66,5 +66,7 @@
     </div>
   </div>
 </div>
+<router-outlet></router-outlet>
+
 
 

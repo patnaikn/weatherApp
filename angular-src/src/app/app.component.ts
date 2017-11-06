@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import {GetWeatherInfoService} from "./get-weather-info.service";
+import {PassdataService} from "./passdata.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -35,7 +37,8 @@ export class AppComponent {
   iconSrc: any;
   infoText: String;
 
-  constructor(private getInfoService : GetWeatherInfoService, private _sanitizer: DomSanitizer) { }
+  constructor(private getInfoService : GetWeatherInfoService, private _sanitizer: DomSanitizer,
+              private router: Router, public passDataService: PassdataService) { }
 
   ngOnInit() {
 
@@ -54,6 +57,7 @@ export class AppComponent {
   showWeatherInfo(url){
     this.getInfoService.getWeatherInfo(url).subscribe(result => {
         this.setWeatherInfo(result.data);
+        this.passDataService.serviceData = result.data;
       },
       err => {
         console.log(err);
@@ -115,19 +119,28 @@ export class AppComponent {
     var hour= currrentTime.toString("hh:mm tt").substring(0,2);
     hour = Number(hour);
     var flag= currrentTime.toString("hh:mm tt").substring(6);
+    this.backgroundUrl = '../assets/images/';
     if ((hour >= 5 && hour <= 9) && flag === 'AM') {
-      this.backgroundUrl = 'https://picoolio.net/images/2017/05/21/03fff34.jpg';
-    } else if((hour > 9 && hour < 12) && flag === 'AM') {
-      this.backgroundUrl = 'https://picoolio.net/images/2017/05/21/01f54bc.png';
-    } else if ((hour >= 1 && hour <= 5 ) && flag === 'PM') {
-      this.backgroundUrl = 'https://picoolio.net/images/2017/05/21/05393b0.jpg';
-    } else if ((hour >= 6 && hour <= 11 ) && flag === 'PM') {
-      this.backgroundUrl = 'https://picoolio.net/images/2017/05/21/021d3bf.jpg';
+      this.backgroundUrl += '03fff34.jpg';
+    } else if((hour > 9 && hour <= 12) && flag === 'AM') {
+      this.backgroundUrl += '01f54bc.png';
+    } else if ((hour > 12 && hour <= 5 ) && flag === 'PM') {
+      this.backgroundUrl += '05393b0.jpg';
+    } else if ((hour >= 5 && hour <= 11 ) && flag === 'PM') {
+      this.backgroundUrl += '021d3bf.jpg';
     } else if(condition.toLowerCase().indexOf('rain') > -1){
-      this.backgroundUrl = 'https://picoolio.net/images/2017/05/21/0445513.jpg';
+      this.backgroundUrl += '0445513.jpg';
     } else if(condition.toLowerCase().indexOf('snow') > -1){
-      this.backgroundUrl = 'https://picoolio.net/images/2017/05/21/06dfa8c.jpg';
+      this.backgroundUrl += '06dfa8c.jpg';
     }
     this.backgroundUrl = this._sanitizer.bypassSecurityTrustStyle(`url(${this.backgroundUrl})`);
   }
+
+  showWeatherChart(){
+    var mainContent = <HTMLElement>document.querySelector('.container');
+    mainContent.classList.add('hide');
+    this.router.navigateByUrl('/showChart');
+  }
+
+
 }
