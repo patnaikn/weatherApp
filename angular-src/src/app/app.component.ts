@@ -10,20 +10,16 @@ import {GetWeatherInfoService} from "./get-weather-info.service";
 export class AppComponent {
   title = 'Weather Application';
   // options :
-  //my_city: String = "Washington,USA";
   location: String;
   my_key: String;
   no_of_days: Number;
-// build URI:
-  //uri ="http://api.worldweatheronline.com/premium/v1/weather.ashx?q="+this.my_city+"&key="+this.my_key+"&format=json&no_of_days="+this.no_of_days+"&includeLocation=yes";
-// uri-encode it to prevent errors :
-  //baseUrl = encodeURI(this.uri);
 
   weatherInfo = {
     nearestArea: '',
     country: '',
     weather: null,
     current_temp: null,
+    current_time: '',
     current_condition: '',
     max_temp: null,
     min_temp: null,
@@ -74,6 +70,7 @@ export class AppComponent {
     this.weatherInfo.current_temp  =weatherInfo.current_condition[0].temp_C;
 
     // A short description of current  weather conditions:
+    this.weatherInfo.current_time = weatherInfo.current_condition[0].observation_time;
     this.weatherInfo.current_condition=weatherInfo.current_condition[0].weatherDesc[0].value;
 
     // Max/min temperature in celsius:
@@ -94,10 +91,23 @@ export class AppComponent {
 
     // Wind direction degree (0 degree corresponds with North)
     this.weatherInfo.wind_dir        =weatherInfo.current_condition[0].winddirDegree;
+
+    this.changeBackGround(this.weatherInfo.current_time);
   }
 
-  generateArray(obj){
-    return Object.keys(obj).map((key)=>{ return {key:key, value:obj[key]}});
+  changeBackGround(currrentTime){
+    var mainDiv = <HTMLElement>document.querySelector(".cardOuter");
+    var hour= currrentTime.toString("hh:mm tt").substring(0,2);
+    hour = Number(hour);
+    var flag= currrentTime.toString("hh:mm tt").substring(6);
+    if ((hour >= 5 && hour <= 9) && flag === 'AM') {
+      mainDiv.style.backgroundImage = "url('https://picoolio.net/images/2017/05/21/03fff34.jpg')";
+    } else if((hour > 9 && hour < 12) && flag === 'AM') {
+      mainDiv.style.backgroundImage = "url('https://picoolio.net/images/2017/05/21/01f54bc.png')";
+    } else if ((hour >= 1 && hour <= 5 ) && flag === 'PM') {
+      mainDiv.style.backgroundImage = "url('https://picoolio.net/images/2017/05/21/05393b0.jpg')";
+    } else if ((hour >= 6 && hour <= 11 ) && flag === 'PM') {
+      mainDiv.style.backgroundImage = "url('https://picoolio.net/images/2017/05/21/021d3bf.jpg')";
+    }
   }
-
 }
