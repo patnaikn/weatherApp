@@ -81,7 +81,7 @@ export class AppComponent {
 
     // A short description of current  weather conditions:
     this.weatherInfo.current_time = weatherInfo.current_condition[0].observation_time;
-    this.weatherInfo.current_condition=weatherInfo.current_condition[0].weatherDesc[0].value;
+    this.weatherInfo.current_condition=weatherInfo.current_condition[0];
 
     //weather on hourly basis
     this.weatherInfo.hourly     =weatherInfo.weather[0].hourly;
@@ -106,21 +106,20 @@ export class AppComponent {
     this.weatherInfo.wind_dir        =weatherInfo.current_condition[0].winddirDegree;
 
     this.changeBackGround(this.weatherInfo.current_time,this.weatherInfo.current_condition);
-    this.setWeatherIconUrl(this.weatherInfo.hourly);
+    this.setWeatherIconUrl(this.weatherInfo.current_condition);
   }
 
-  setWeatherIconUrl(hourly){
-    for (var i = 0; i < hourly.length; i++){
-      this.iconSrc = hourly[i].weatherIconUrl[0].value;
+  setWeatherIconUrl(currentCondition){
+      this.iconSrc = currentCondition.weatherIconUrl[0].value;
       this.iconSrc = this._sanitizer.bypassSecurityTrustResourceUrl(this.iconSrc);
-      this.infoText = hourly[i].weatherDesc[0].value;
-    }
+      this.infoText = currentCondition.weatherDesc[0].value;
   }
 
-  changeBackGround(currrentTime,condition){
+  changeBackGround(currrentTime,currentCondition){
     var hour= currrentTime.toString("hh:mm tt").substring(0,2);
     hour = Number(hour);
     var flag= currrentTime.toString("hh:mm tt").substring(6);
+    var condition = currentCondition.weatherDesc[0].value;
     this.backgroundUrl = '../assets/images/';
     if ((hour >= 5 && hour <= 9) && flag === 'AM') {
       this.backgroundUrl += '03fff34.jpg';
