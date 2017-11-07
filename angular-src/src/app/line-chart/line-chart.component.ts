@@ -45,7 +45,8 @@ export class LineChartComponent implements OnInit {
   }
 
   public setChartData(weatherData, chartData, chartLabels){
-    var arr = weatherData.weather[0].hourly;
+    var indexValue = this.weatherData.indexValue;
+    var arr = weatherData.weather[indexValue].hourly;
     var labelData = [];
     for(var i= 0; i < arr.length; i++ ){
       chartLabels.push(arr[i].time);

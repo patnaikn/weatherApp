@@ -3,7 +3,7 @@
   <h1>
     {{title}}
   </h1>
-  <div>
+  <div id="form-div">
     <form (submit)="onSubmitingLocation()">
       <div class="form-group">
         <label>Enter Name of the city</label>
@@ -17,7 +17,7 @@
 </div>
 <div class="container">
   <h1 *ngIf="weatherInfo.nearestArea" class="city">Nearest Area: {{weatherInfo.nearestArea}}</h1>
-  <div *ngIf="weatherInfo.weather" class="cardOuter" [style.background-image]="backgroundUrl" (click)="showWeatherChart()">
+  <div *ngIf="weatherInfo.weather" class="cardOuter" [style.background-image]="backgroundUrl">
     <ul class="list-inline">
       <li><img src="http://svgshare.com/i/1fN.svg" alt="" /></li>
       <li>{{weatherInfo.weather[0].astronomy[0].sunrise}}</li>
@@ -45,7 +45,7 @@
     </div>
   </div>
   <div class="row">
-    <div *ngFor="let item of weatherInfo.weather" class="col-md-6" (click)="showWeatherChart()">
+    <div *ngFor="let item of weatherInfo.weather" class="col-md-6" (click)="showWeatherChart(weatherInfo.weather.indexOf(item))">
       <div>
         <div class="card" [style.background-image]="backgroundUrl">
           <ul class="list-inline">

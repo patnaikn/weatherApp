@@ -51,13 +51,14 @@ export class AppComponent {
     var uri ="http://api.worldweatheronline.com/premium/v1/weather.ashx?q="+this.location+"&key="+this.my_key+"&format=json&no_of_days="+this.no_of_days+"&includeLocation=yes";
 // uri-encode it to prevent errors :
     var baseUrl = encodeURI(uri);
+    var headerContent = <HTMLElement>document.querySelector('.jumbotron');
+    headerContent.classList.add('next-page');
     this.showWeatherInfo(baseUrl);
   }
 
   showWeatherInfo(url){
     this.getInfoService.getWeatherInfo(url).subscribe(result => {
-        this.setWeatherInfo(result.data);
-        this.passDataService.serviceData = result.data;
+        this.setWeatherInfo(this.passDataService.serviceData);
       },
       err => {
         console.log(err);
@@ -67,6 +68,7 @@ export class AppComponent {
 
   setWeatherInfo(weatherInfo){
     // Name of nearest area :
+    console.log(this.passDataService.serviceData);
     this.weatherInfo.nearestArea    =weatherInfo.nearest_area[0].region[0].value;
 
     // Name of country :
@@ -136,9 +138,10 @@ export class AppComponent {
     this.backgroundUrl = this._sanitizer.bypassSecurityTrustStyle(`url(${this.backgroundUrl})`);
   }
 
-  showWeatherChart(){
+  showWeatherChart(val){
     var mainContent = <HTMLElement>document.querySelector('.container');
     mainContent.classList.add('hide');
+    this.passDataService.serviceData.indexValue = val;
     this.router.navigateByUrl('/showChart');
   }
 
