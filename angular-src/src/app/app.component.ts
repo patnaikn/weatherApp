@@ -53,7 +53,18 @@ export class AppComponent {
     var baseUrl = encodeURI(uri);
     var headerContent = <HTMLElement>document.querySelector('.jumbotron');
     headerContent.classList.add('next-page');
+    this.showLocationLabel();
     this.showWeatherInfo(baseUrl);
+  }
+
+  hideLocationLabel(){
+    var locationLabel = <HTMLElement>document.querySelector('#afterSearch');
+    locationLabel.style.display = "none";
+  }
+
+  showLocationLabel(){
+    var locationLabel = <HTMLElement>document.querySelector('#afterSearch');
+    locationLabel.style.display = "inline-block";
   }
 
   showWeatherInfo(url){

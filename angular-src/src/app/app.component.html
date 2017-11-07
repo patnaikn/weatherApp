@@ -8,12 +8,13 @@
       <div class="form-group">
         <label>Enter Name of the city</label>
         <div class="form-horizontal" id="forminline">
-          <input type="text" [(ngModel)]="location" name="location" style="width:240px;height:40px;">
+          <input type="text" [(ngModel)]="location" name="location" style="width:240px;height:40px;" (keydown)="hideLocationLabel()">
           <input type="submit" class="btn btn-primary" value="Click For Weather Info">
         </div>
       </div>
     </form>
   </div>
+  <div id="afterSearch"><label>{{location}}</label></div>
 </div>
 <div class="container">
   <h1 *ngIf="weatherInfo.nearestArea" class="city">Nearest Area: {{weatherInfo.nearestArea}}</h1>
