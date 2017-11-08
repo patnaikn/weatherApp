@@ -34,6 +34,7 @@ export class AppComponent {
   };
 
   backgroundUrl : any;
+  subCardBackgroundUrl: any;
   iconSrc: any;
   infoText: String;
 
@@ -64,6 +65,7 @@ export class AppComponent {
 
   showLocationLabel(){
     var locationLabel = <HTMLElement>document.querySelector('#afterSearch');
+    this.location = this.location.charAt(0).toUpperCase()+this.location.slice(1);
     locationLabel.style.display = "inline-block";
   }
 
@@ -79,7 +81,6 @@ export class AppComponent {
 
   setWeatherInfo(weatherInfo){
     // Name of nearest area :
-    console.log(this.passDataService.serviceData);
     this.weatherInfo.nearestArea    =weatherInfo.nearest_area[0].region[0].value;
 
     // Name of country :
@@ -145,6 +146,8 @@ export class AppComponent {
     } else if(condition.toLowerCase().indexOf('snow') > -1){
       this.backgroundUrl += '06dfa8c.jpg';
     }
+    this.subCardBackgroundUrl = '../assets/images/wvNCf.png';
+    this.subCardBackgroundUrl = this._sanitizer.bypassSecurityTrustStyle(`url(${this.subCardBackgroundUrl})`);
     this.backgroundUrl = this._sanitizer.bypassSecurityTrustStyle(`url(${this.backgroundUrl})`);
   }
 

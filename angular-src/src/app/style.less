@@ -27,16 +27,28 @@
     position: absolute;
     right: 15px;
     top: 5px;
-    text-align: right;
     color: white;
-    ul li{
-      img{
-        width: 70px;
-        margin-left: -15px;
+    ul {
+      padding-left: 27px;
+      text-align: left;
+      li {
+        img {
+          width: 32px;
+        }
+        font-size: 25px;
+        color: white;
+        p {
+          margin-left: 0px;
+        }
+        #secondImage {
+          margin-left: 33px;
+        }
+        #thirdImage {
+          margin-left: 13px;
+        }
       }
-      font-size: 25px;
-      color: white;
     }
+
   }
   .city{
     position: absolute;
@@ -45,6 +57,7 @@
     color: white;
     font-size: 30px;
   }
+
 }
 .card{
   height: 100px;
@@ -106,13 +119,6 @@ h3{
 h1.city{
   margin: 0 215px 10px;
 }
-#infoTemp,#infoDir{
-  margin: 10px 30px 0px -15px;
-}
-
-#infoSpeed{
-  margin: 10px 0px 0px -15px;
-}
 .hide{
   display: none;
 }
@@ -135,7 +141,14 @@ h1.city{
     font-size: 38px;
     display: inline-block;
     margin-top: -23px;
-    margin-left: -850px;
+    margin-left: -500px;
+  }
+  #afterSearch{
+    float:right;
+    h2{
+      padding-right: 300px;
+      margin-top: -10px;
+    }
   }
 
 }
