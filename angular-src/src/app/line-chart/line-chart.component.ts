@@ -9,6 +9,7 @@ import {PassdataService} from "../passdata.service";
 export class LineChartComponent implements OnInit {
 
   weatherData: any;
+  indexValue: any;
   public lineChartData:Array<any> = [] ;
   public lineChartLabels:Array<any> = [] ;
   public lineChartOptions:any = {
@@ -28,12 +29,13 @@ export class LineChartComponent implements OnInit {
   public lineChartType:string = 'line';
 
   constructor(public passData: PassdataService) {
-    this.weatherData = this.passData.serviceData;
+    this.weatherData = this.passData.serviceData.weatherData;
+    this.indexValue = this.passData.serviceData.indexValue;
     this.setChartData(this.weatherData,this.lineChartData,this.lineChartLabels);
   }
 
   ngOnInit() {
-    history.pushState(this.weatherData, null, window.location.href);
+
   }
 
   // events
@@ -46,7 +48,7 @@ export class LineChartComponent implements OnInit {
   }
 
   public setChartData(weatherData, chartData, chartLabels){
-    var indexValue = this.weatherData.indexValue;
+    var indexValue = this.indexValue;
     var arr = weatherData.weather[indexValue].hourly;
     var labelData = [];
     for(var i= 0; i < arr.length; i++ ){

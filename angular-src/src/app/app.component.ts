@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { PlatformLocation } from '@angular/common'
 import {GetWeatherInfoService} from "./get-weather-info.service";
+import {PassdataService} from "./passdata.service";
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,8 +16,10 @@ export class AppComponent {
   my_key: String;
   no_of_days: Number;
 
-  constructor(private getInfoService : GetWeatherInfoService,
-              private router: Router) { }
+  constructor(private getInfoService : GetWeatherInfoService, location: PlatformLocation,
+              private router: Router, public passDataService: PassdataService) {
+
+  }
 
   ngOnInit() {
      this.hideLocationLabel();
@@ -31,7 +35,8 @@ export class AppComponent {
     var headerContent = <HTMLElement>document.querySelector('.jumbotron.text-center');
     headerContent.classList.add('next-page');
     this.showLocationLabel();
-    this.showWeatherInfo(baseUrl);
+    this.passDataService.serviceData.url= baseUrl;
+    this.router.navigateByUrl('/showDetail');
   }
 
   hideLocationLabel(){
@@ -43,16 +48,6 @@ export class AppComponent {
     var locationLabel = <HTMLElement>document.querySelector('#afterSearch');
     this.location = this.location.charAt(0).toUpperCase()+this.location.slice(1);
     locationLabel.style.display = "inline-block";
-  }
-
-  showWeatherInfo(url){
-    this.getInfoService.getWeatherInfo(url).subscribe(result => {
-        this.router.navigateByUrl('/showDetail');
-      },
-      err => {
-        console.log(err);
-        return false;
-      });
   }
 
 }

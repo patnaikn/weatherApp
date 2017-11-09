@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class PassdataService {
 
-  public serviceData: any;
+  public serviceData: any = {};
   constructor() { }
 
 }

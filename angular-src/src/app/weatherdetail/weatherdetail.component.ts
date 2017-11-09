@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import {GetWeatherInfoService} from "../get-weather-info.service";
 import {PassdataService} from "../passdata.service";
 
 @Component({
@@ -11,6 +12,7 @@ import {PassdataService} from "../passdata.service";
 export class WeatherdetailComponent implements OnInit {
 
   weatherData: any;
+  url: any;
   // options :
 
   weatherInfo = {
@@ -35,18 +37,30 @@ export class WeatherdetailComponent implements OnInit {
   iconSrc: any;
   infoText: String;
 
-  constructor(public passDataService: PassdataService,private _sanitizer: DomSanitizer,
+  constructor(private getInfoService : GetWeatherInfoService, public passDataService: PassdataService,private _sanitizer: DomSanitizer,
               private router: Router) {
-
+    this.url = this.passDataService.serviceData.url;
+    this.showWeatherInfo(this.url);
   }
 
   ngOnInit() {
-    this.weatherData = this.passDataService.serviceData;
-    this.setWeatherInfo(this.passDataService.serviceData);
+
+  }
+
+  showWeatherInfo(url){
+    this.getInfoService.getWeatherInfo(this.url).subscribe(result => {
+      this.setWeatherInfo(result.data);
+        this.passDataService.serviceData.weatherData = result.data;
+      },
+      err => {
+        console.log(err);
+        return false;
+      });
   }
 
   setWeatherInfo(weatherInfo){
     // Name of nearest area :
+    //console.log(weatherInfo);
     this.weatherInfo.nearestArea    =weatherInfo.nearest_area[0].areaName[0].value;
 
     // Name of country :
@@ -121,7 +135,6 @@ export class WeatherdetailComponent implements OnInit {
     var mainContent = <HTMLElement>document.querySelector('.container');
     mainContent.classList.add('hide');
     this.passDataService.serviceData.indexValue = val;
-    history.pushState(this.weatherInfo, null, window.location.href);
     this.router.navigateByUrl('/showChart');
   }
 

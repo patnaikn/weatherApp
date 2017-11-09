@@ -13,9 +13,11 @@ export class GetWeatherInfoService {
     headers.append('Content-Type','application/json');
     return this.http.get(url,{headers: headers})
       .map(res => {
-         var info = res.json();
-        this.passDataService.serviceData = info.data;
-        return info;
+        //  var info = res.json();
+        // this.passDataService.serviceData.weatherInfo = info.data;
+        // return info;
+
+        return res.json();
 
       },
         err => {
