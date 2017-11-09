@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import {GetWeatherInfoService} from "../get-weather-info.service";
 import { Router } from '@angular/router';
 import {PassdataService} from "../passdata.service";
 
@@ -36,14 +35,14 @@ export class WeatherdetailComponent implements OnInit {
   iconSrc: any;
   infoText: String;
 
-  constructor(private getInfoService : GetWeatherInfoService, private _sanitizer: DomSanitizer,
-              private router: Router, public passDataService: PassdataService) {
-    this.weatherData = this.passDataService.serviceData;
-    this.setWeatherInfo(this.weatherData);
+  constructor(public passDataService: PassdataService,private _sanitizer: DomSanitizer,
+              private router: Router) {
+
   }
 
   ngOnInit() {
-
+    this.weatherData = this.passDataService.serviceData;
+    this.setWeatherInfo(this.passDataService.serviceData);
   }
 
   setWeatherInfo(weatherInfo){

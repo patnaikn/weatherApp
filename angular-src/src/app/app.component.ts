@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import {GetWeatherInfoService} from "./get-weather-info.service";
-import {PassdataService} from "./passdata.service";
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./weatherdetail/style.less']
+  styleUrls: ['./style.less']
 })
 export class AppComponent {
   title = 'Weather Application';
@@ -16,8 +14,8 @@ export class AppComponent {
   my_key: String;
   no_of_days: Number;
 
-  constructor(private getInfoService : GetWeatherInfoService, private _sanitizer: DomSanitizer,
-              private router: Router, public passDataService: PassdataService) { }
+  constructor(private getInfoService : GetWeatherInfoService,
+              private router: Router) { }
 
   ngOnInit() {
      this.hideLocationLabel();
@@ -30,7 +28,7 @@ export class AppComponent {
     var uri ="http://api.worldweatheronline.com/premium/v1/weather.ashx?q="+this.location+"&key="+this.my_key+"&format=json&no_of_days="+this.no_of_days+"&includeLocation=yes";
 // uri-encode it to prevent errors :
     var baseUrl = encodeURI(uri);
-    var headerContent = <HTMLElement>document.querySelector('.jumbotron');
+    var headerContent = <HTMLElement>document.querySelector('.jumbotron.text-center');
     headerContent.classList.add('next-page');
     this.showLocationLabel();
     this.showWeatherInfo(baseUrl);
