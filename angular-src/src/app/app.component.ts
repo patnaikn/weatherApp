@@ -42,7 +42,7 @@ export class AppComponent {
               private router: Router, public passDataService: PassdataService) { }
 
   ngOnInit() {
-
+     this.hideLocationLabel();
   }
 
   onSubmitingLocation(){

@@ -14,10 +14,10 @@
       </div>
     </form>
   </div>
-  <div id="afterSearch"><h2>{{location}}</h2></div>
+  <div id="afterSearch"><label>Results showing for:</label><h2>{{location}}</h2></div>
 </div>
-<div class="container">
-  <h1 *ngIf="weatherInfo.nearestArea" class="city">Nearest Area: {{weatherInfo.nearestArea}}</h1>
+<h1 *ngIf="weatherInfo.nearestArea" class="city">Nearest Area: {{weatherInfo.nearestArea}}</h1>
+<div class="container" id="mainContainer">
   <div *ngIf="weatherInfo.weather" class="cardOuter" [style.background-image]="backgroundUrl">
     <ul class="list-inline">
       <li><img src="http://svgshare.com/i/1fN.svg" alt="" /></li>
