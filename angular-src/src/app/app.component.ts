@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { PlatformLocation } from '@angular/common'
-import {GetWeatherInfoService} from "./get-weather-info.service";
 import {PassdataService} from "./passdata.service";
 import { Router } from '@angular/router';
 
@@ -16,8 +14,7 @@ export class AppComponent {
   my_key: String;
   no_of_days: Number;
 
-  constructor(private getInfoService : GetWeatherInfoService, location: PlatformLocation,
-              private router: Router, public passDataService: PassdataService) {
+  constructor(private router: Router, public passDataService: PassdataService) {
 
   }
 

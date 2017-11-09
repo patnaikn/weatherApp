@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PassdataService} from "../passdata.service";
+import { PlatformLocation } from '@angular/common';
 
 @Component({
   selector: 'app-line-chart',
@@ -28,10 +29,15 @@ export class LineChartComponent implements OnInit {
   public lineChartLegend:boolean = true;
   public lineChartType:string = 'line';
 
-  constructor(public passData: PassdataService) {
+  constructor(public passData: PassdataService, location: PlatformLocation) {
     this.weatherData = this.passData.serviceData.weatherData;
     this.indexValue = this.passData.serviceData.indexValue;
     this.setChartData(this.weatherData,this.lineChartData,this.lineChartLabels);
+    location.onPopState(() => {
+
+      window.history.go(-1);
+
+    });
   }
 
   ngOnInit() {

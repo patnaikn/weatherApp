@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { PlatformLocation } from '@angular/common';
 import {GetWeatherInfoService} from "../get-weather-info.service";
 import {PassdataService} from "../passdata.service";
 
@@ -38,9 +39,14 @@ export class WeatherdetailComponent implements OnInit {
   infoText: String;
 
   constructor(private getInfoService : GetWeatherInfoService, public passDataService: PassdataService,private _sanitizer: DomSanitizer,
-              private router: Router) {
+              private router: Router, location: PlatformLocation) {
     this.url = this.passDataService.serviceData.url;
     this.showWeatherInfo(this.url);
+    location.onPopState(() => {
+
+     window.history.go(-1);
+
+    });
   }
 
   ngOnInit() {
