@@ -6,7 +6,7 @@ import {PassdataService} from "../passdata.service";
 @Component({
   selector: 'app-weatherdetail',
   templateUrl: './weatherdetail.component.html',
-  styleUrls: ['./style.less']
+  styleUrls: ['./weatherdetail.component.less']
 })
 export class WeatherdetailComponent implements OnInit {
 
