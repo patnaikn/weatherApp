@@ -16,65 +16,6 @@
   </div>
   <div id="afterSearch"><label>Results showing for:</label><h2>{{location}}</h2></div>
 </div>
-<h1 *ngIf="weatherInfo.nearestArea" class="city">Nearest Area: {{weatherInfo.nearestArea}}</h1>
-<div class="container" id="mainContainer">
-  <div *ngIf="weatherInfo.weather" class="cardOuter" [style.background-image]="backgroundUrl">
-    <ul class="list-inline">
-      <li><img src="http://svgshare.com/i/1fN.svg" alt="" /></li>
-      <li>{{weatherInfo.weather[0].astronomy[0].sunrise}}</li>
-    </ul>
-    <ul class="list-inline">
-      <li><img src="http://svgshare.com/i/1fu.svg" alt="" /></li>
-      <li>{{weatherInfo.weather[0].astronomy[0].moonrise}}</li>
-    </ul>
-    <h1>{{weatherInfo.weather[0].date}}</h1>
-    <div class="date">
-      <ul class="list-inline">
-        <li><img src="../assets/images/icons8-temperature.png"></li>
-        <li><p id="infoTemp">{{weatherInfo.current_temp}}&deg;C</p></li>
-        <li><img src="../assets/images/icons8-air.png" id="secondImage"></li>
-        <li><p id="infoSpeed">{{weatherInfo.wind_speed_kmph}} KMPH</p></li>
-        <li><img src="../assets/images/icons8-compass.png" id="thirdImage"></li>
-        <li><p id="infoDir">{{weatherInfo.wind_dir}}&deg;</p></li>
-      </ul>
-      <ul class="list-inline">
-        <li><img src="../assets/images/icons8-humidity.png"></li>
-        <li><p>{{weatherInfo.humidity}}</p></li>
-        <li><img src="../assets/images/icons8-pressure.png" id="secondImage"></li>
-        <li><p>{{weatherInfo.pressure}} MBar</p></li>
-        <li><img src="../assets/images/icons8-hail.png" id="thirdImage"></li>
-        <li><p>{{weatherInfo.precipitation}}</p></li>
-      </ul>
-    </div>
-    <div class="city">
-      <ul class="list-inline">
-        <li><img [src]="iconSrc"></li>
-        <li><p>{{infoText}}</p></li>
-      </ul>
-    </div>
-  </div>
-  <div class="row">
-    <div *ngFor="let item of weatherInfo.weather" class="col-md-6" (click)="showWeatherChart(weatherInfo.weather.indexOf(item))">
-      <div>
-        <div class="card" [style.background-image]="subCardBackgroundUrl">
-          <ul class="list-inline">
-            <li><img src="http://svgshare.com/i/1fN.svg" alt=""/></li>
-            <li>{{item.astronomy[0].sunrise}}</li>
-          </ul>
-          <ul class="list-inline">
-            <li><img src="http://svgshare.com/i/1fu.svg" alt=""/></li>
-            <li>{{item.astronomy[0].moonrise}}</li>
-          </ul>
-          <h1>{{item.date}}</h1>
-          <ul class="date">
-            <li><h3>{{item.mintempC}}&deg;C</h3></li>
-            <li><h3>{{item.maxtempC}}&deg;C</h3></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 <router-outlet></router-outlet>
 
 

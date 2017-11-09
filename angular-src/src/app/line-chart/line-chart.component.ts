@@ -33,6 +33,7 @@ export class LineChartComponent implements OnInit {
   }
 
   ngOnInit() {
+    history.pushState(this.weatherData, null, window.location.href);
   }
 
   // events
