@@ -3,11 +3,11 @@
   <div id="mainContainer">
     <div *ngIf="weatherInfo.weather" class="cardOuter" [style.background-image]="backgroundUrl">
       <ul class="list-inline">
-        <li><img src="http://svgshare.com/i/1fN.svg" alt="" /></li>
+        <li><img src="http://svgshare.com/i/1fN.svg" alt=""/></li>
         <li>{{weatherInfo.weather[0].astronomy[0].sunrise}}</li>
       </ul>
       <ul class="list-inline">
-        <li><img src="http://svgshare.com/i/1fu.svg" alt="" /></li>
+        <li><img src="http://svgshare.com/i/1fu.svg" alt=""/></li>
         <li>{{weatherInfo.weather[0].astronomy[0].moonrise}}</li>
       </ul>
       <h1>{{weatherInfo.weather[0].date}}</h1>
@@ -37,26 +37,27 @@
       </div>
     </div>
   </div>
-    <h2 *ngIf="weatherInfo.weather" class="city">Click on the widgets to see daily weather statistics</h2>
-    <div class="row">
-      <div *ngFor="let item of weatherInfo.weather" class="col-md-4" (click)="showWeatherChart(weatherInfo.weather.indexOf(item))">
-        <div>
-          <div class="card" [style.background-image]="subCardBackgroundUrl">
-            <ul class="list-inline">
-              <li><img src="http://svgshare.com/i/1fN.svg" alt=""/></li>
-              <li>{{item.astronomy[0].sunrise}}</li>
-            </ul>
-            <ul class="list-inline">
-              <li><img src="http://svgshare.com/i/1fu.svg" alt=""/></li>
-              <li>{{item.astronomy[0].moonrise}}</li>
-            </ul>
-            <h1>{{item.date}}</h1>
-            <ul class="date">
-              <li><h3>{{item.mintempC}}&deg;C</h3></li>
-              <li><h3>{{item.maxtempC}}&deg;C</h3></li>
-            </ul>
-          </div>
+  <h2 *ngIf="weatherInfo.weather" class="city">Click on the widgets to see daily weather statistics</h2>
+  <div class="row">
+    <div *ngFor="let item of weatherInfo.weather" class="col-md-4"
+         (click)="showWeatherChart(weatherInfo.weather.indexOf(item))">
+      <div>
+        <div class="card" [style.background-image]="subCardBackgroundUrl">
+          <ul class="list-inline">
+            <li><img src="http://svgshare.com/i/1fN.svg" alt=""/></li>
+            <li>{{item.astronomy[0].sunrise}}</li>
+          </ul>
+          <ul class="list-inline">
+            <li><img src="http://svgshare.com/i/1fu.svg" alt=""/></li>
+            <li>{{item.astronomy[0].moonrise}}</li>
+          </ul>
+          <h1>{{item.date}}</h1>
+          <ul class="date">
+            <li><h3>{{item.mintempC}}&deg;C</h3></li>
+            <li><h3>{{item.maxtempC}}&deg;C</h3></li>
+          </ul>
         </div>
       </div>
     </div>
+  </div>
 </div>
