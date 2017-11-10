@@ -33,11 +33,7 @@ export class LineChartComponent implements OnInit {
     this.weatherData = this.passData.serviceData.weatherData;
     this.indexValue = this.passData.serviceData.indexValue;
     this.setChartData(this.weatherData,this.lineChartData,this.lineChartLabels);
-    location.onPopState(() => {
-
-      window.history.go(-1);
-
-    });
+    history.pushState({title: 'chartdata', data: this.weatherData,  url:window.location.href}, document.title, window.location.href);
   }
 
   ngOnInit() {

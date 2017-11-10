@@ -42,11 +42,6 @@ export class WeatherdetailComponent implements OnInit {
               private router: Router, location: PlatformLocation) {
     this.url = this.passDataService.serviceData.url;
     this.showWeatherInfo(this.url);
-    location.onPopState(() => {
-
-     window.history.go(-1);
-
-    });
   }
 
   ngOnInit() {
@@ -54,9 +49,12 @@ export class WeatherdetailComponent implements OnInit {
   }
 
   showWeatherInfo(url){
+    var data;
     this.getInfoService.getWeatherInfo(this.url).subscribe(result => {
-      this.setWeatherInfo(result.data);
-        this.passDataService.serviceData.weatherData = result.data;
+      data = result.data || this.weatherData;
+      this.setWeatherInfo(data);
+      this.passDataService.serviceData.weatherData = result.data;
+      history.pushState({title: 'weatherdata', data: result.data, url:window.location.href}, document.title, window.location.href);
       },
       err => {
         console.log(err);
